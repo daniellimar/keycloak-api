@@ -1,16 +1,31 @@
 const config = require('./config.json');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 const ROLES = [];
 
 const sistema = config.sistema;
+const MOCK_PERFIL = process.env.MOCK_PERFIL?.trim();
 
 sistema.modulos.forEach(modulo => {
-    if (modulo.status !== 'ativo') {
+    if (modulo.status?.toLowerCase() !== 'ativo') {
         return;
     }
 
     modulo.funcionalidade.forEach(funcionalidade => {
-        if (funcionalidade.status !== 'ativo') {
+        if (funcionalidade.status?.toLowerCase() !== 'ativo') {
+            return;
+        }
+
+        // Se MOCK_PERFIL estiver definido, filtra pelo perfil.
+        // Se não estiver definido, considera todas as funcionalidades ativas.
+        if (
+            MOCK_PERFIL &&
+            !funcionalidade.grupos?.some(
+                grupo => grupo.trim() === MOCK_PERFIL
+            )
+        ) {
             return;
         }
 
