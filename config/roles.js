@@ -18,11 +18,14 @@ sistema.modulos.forEach(modulo => {
             return;
         }
 
-        const pertenceAoPerfil = funcionalidade.grupos?.some(
-            grupo => grupo.trim() === MOCK_PERFIL
-        );
-
-        if (!pertenceAoPerfil) {
+        // Se MOCK_PERFIL estiver definido, filtra pelo perfil.
+        // Se não estiver definido, considera todas as funcionalidades ativas.
+        if (
+            MOCK_PERFIL &&
+            !funcionalidade.grupos?.some(
+                grupo => grupo.trim() === MOCK_PERFIL
+            )
+        ) {
             return;
         }
 
