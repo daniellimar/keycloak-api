@@ -1,0 +1,8 @@
+{
+	"/auth/realms/:realm/.well-known/openid-configuration": "/openid-configuration",
+	"/auth/realms/:realm/protocol/openid-connect/token": "/token",
+	"/auth/realms/:realm/protocol/openid-connect/userinfo": "/userinfo",
+	"/auth/realms/:realm/protocol/openid-connect/certs": "/certs",
+	"/auth/realms/:realm/protocol/openid-connect/registrations": "/registrations",
+	"/auth/realms/:realm": "/realm-info"
+}
