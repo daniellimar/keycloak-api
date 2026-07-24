@@ -211,7 +211,7 @@ function registerTokenRoute(server, privateKey, config) {
                 access_token: accessToken,
                 refresh_token: refreshToken,
                 token_type: 'Bearer',
-                expires_in: 3600,
+                expires_in: config.accessTokenExpiresIn,
                 refresh_expires_in: 2592000,
                 scope: 'openid profile email'
             });
