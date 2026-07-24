@@ -58,17 +58,34 @@
 				const urlParams = new URLSearchParams(window.location.search);
 				const redirectUri = urlParams.get('redirect_uri');
 				const state = urlParams.get('state');
+				// keycloak-js manda response_mode=fragment por padrão: o code/state
+				// tem de vir depois de "#", não como query string, senão o cliente
+				// nunca encontra o callback e fica tentando fazer login de novo.
+				const responseMode = urlParams.get('response_mode') || 'fragment';
 
 				if (!redirectUri) {
 					alert('Parâmetro redirect_uri em falta.');
 					return;
 				}
 
-				// Use URL constructor to safely append params without string interpolation
+				const code = 'mock-authorization-code-12345';
+
+				// Usa o construtor URL para montar o callback com segurança (sem
+				// interpolação de string), preservando querystring/hash pré-existentes.
 				const callbackUrl = new URL(redirectUri);
-				callbackUrl.searchParams.set('code', 'mock-authorization-code-12345');
-				if (state) {
-					callbackUrl.searchParams.set('state', state);
+
+				if (responseMode === 'query') {
+					callbackUrl.searchParams.set('code', code);
+					if (state) {
+						callbackUrl.searchParams.set('state', state);
+					}
+				} else {
+					const fragmentParams = new URLSearchParams();
+					fragmentParams.set('code', code);
+					if (state) {
+						fragmentParams.set('state', state);
+					}
+					callbackUrl.hash = fragmentParams.toString();
 				}
 
 				window.location.href = callbackUrl.toString();
