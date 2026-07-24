@@ -1,2 +1,14 @@
 [tools]
 node = "22.13.0"
+
+[tasks.install]
+description = "Instala as dependências do projeto"
+run = "npm install"
+
+[tasks.dev]
+description = "Inicia o servidor de desenvolvimento"
+run = "npm run dev"
+
+[tasks.setup]
+description = "Instala as dependências e inicia o projeto"
+run = "npm install && npm run dev"
