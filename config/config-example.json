@@ -1,0 +1,36 @@
+{
+  "sistema": {
+    "nome": "SISTEMA",
+    "descricao": "Painel do SISTEMA",
+    "sigla": "SISTEMA",
+    "mnemonico": "SISTEMA",
+    "url": "sistema-app",
+    "icone": "fingerprint",
+    "modulos": [
+      {
+        "nome": "Dashboard",
+        "sistema": "SISTEMA",
+        "mnemonico": "Dashboard",
+        "status": "ativo",
+        "funcionalidade": [
+          {
+            "nome": "Pesquisar",
+            "mnemonico": "Pesquisar",
+            "status": "inativo",
+            "grupos": []
+          },
+          {
+            "nome": "Visualizar",
+            "mnemonico": "Visualizar",
+            "status": "ativo",
+            "grupos": [
+              "ADMINISTRADOR "
+            ]
+          }
+        ]
+      }
+    ],
+    "client_id": "sistema-app",
+    "status": "ativo"
+  }
+}

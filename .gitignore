@@ -6,3 +6,4 @@ dist/
 .env
 /.idea
 /keys
+config/config.json
