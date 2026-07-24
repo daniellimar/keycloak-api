@@ -10,11 +10,22 @@ const ROLES = require("./config/roles");
 function createApp(root) {
     const server = jsonServer.create();
 
+    const path = require('path');
+    const jwt = require('jsonwebtoken');
+    const crypto = require('crypto');
+    const dotenv = require('dotenv');
+
+    const {loadOrGenerateKeys} = require('./utils/key-manager');
+
     dotenv.config();
 
-    const router = jsonServer.router(
-        path.join(root, 'db.json')
-    );
+    const dbPath = path.join(root, 'db.json');
+
+    const db = require(dbPath);
+
+    configureRealm(db);
+
+    const router = jsonServer.router(db);
 
     const middlewares = jsonServer.defaults({
         noCors: false
@@ -75,12 +86,21 @@ function createApp(root) {
         '/auth/realms/:realm/protocol/openid-connect/token',
         (req, res) => {
 
+            const MOCK_KEYCLOAK_REALM = process.env.MOCK_KEYCLOAK_REALM;
+            const MOCK_KEYCLOAK_URL = process.env.MOCK_KEYCLOAK_URL;
+
+            const requestedRealm = req.params.realm;
+
             console.log('>>> POST /token');
 
-            const realm = req.params.realm;
+            if (requestedRealm !== MOCK_KEYCLOAK_REALM) {
+                console.log(`❌ Realm não encontrado: ${requestedRealm}`);
+                return res.status(404).json({error: 'Realm not found'});
+            }
 
-            const issuer =
-                `http://localhost:9090/auth/realms/${realm}`;
+            console.log('>>> Realm configurado:', MOCK_KEYCLOAK_REALM);
+
+            const issuer = `${MOCK_KEYCLOAK_URL}/auth/realms/${MOCK_KEYCLOAK_REALM}`;
 
             const accessToken = jwt.sign(
                 {
@@ -102,8 +122,9 @@ function createApp(root) {
 
             const refreshToken = jwt.sign(
                 {
-                    sub: '123456',
-                    preferred_username: 'daniel',
+                    sub: process.env.MOCK_USER_SUB,
+                    preferred_username:
+                    process.env.MOCK_USER_USERNAME,
                     type: 'refresh'
                 },
                 privateKey,
@@ -115,21 +136,14 @@ function createApp(root) {
                 }
             );
 
-            const response = {
+            return res.status(200).json({
                 access_token: accessToken,
                 refresh_token: refreshToken,
                 token_type: 'Bearer',
                 expires_in: 3600,
                 refresh_expires_in: 2592000,
                 scope: 'openid profile email'
-            };
-
-            console.log(
-                '>>> Token response:',
-                response
-            );
-
-            return res.status(200).json(response);
+            });
         }
     );
 
@@ -198,6 +212,40 @@ function createApp(root) {
     server.use(router);
 
     return server;
+}
+
+function configureRealm(db) {
+    const realm = process.env.MOCK_KEYCLOAK_REALM;
+    const baseUrl = process.env.MOCK_KEYCLOAK_URL;
+
+    if (!realm) {
+        throw new Error(
+            'MOCK_KEYCLOAK_REALM não foi definido no .env'
+        );
+    }
+
+    const realmBaseUrl = `${baseUrl}/auth/realms/${realm}`;
+
+    db['openid-configuration'] = {
+        ...db['openid-configuration'],
+        issuer: realmBaseUrl,
+        authorization_endpoint: `${realmBaseUrl}/protocol/openid-connect/auth`,
+        token_endpoint: `${realmBaseUrl}/protocol/openid-connect/token`,
+        userinfo_endpoint: `${realmBaseUrl}/protocol/openid-connect/userinfo`,
+        end_session_endpoint: `${realmBaseUrl}/protocol/openid-connect/logout`,
+        jwks_uri: `${realmBaseUrl}/protocol/openid-connect/certs`
+    };
+
+    db['realm-info'] = {
+        ...db['realm-info'],
+        realm: realm,
+        'token-service':
+            `${realmBaseUrl}/protocol/openid-connect`,
+        'account-service':
+            `${realmBaseUrl}/account`
+    };
+
+    return db;
 }
 
 module.exports = createApp;
