@@ -1,57 +1,60 @@
 {
-	"openid-configuration": {
-		"issuer": "http://localhost:3000/auth/realms/master",
-		"authorization_endpoint": "http://localhost:3000/auth/realms/master/protocol/openid-connect/auth",
-		"token_endpoint": "http://localhost:3000/auth/realms/master/protocol/openid-connect/token",
-		"userinfo_endpoint": "http://localhost:3000/auth/realms/master/protocol/openid-connect/userinfo",
-		"end_session_endpoint": "http://localhost:3000/auth/realms/master/protocol/openid-connect/logout",
-		"jwks_uri": "http://localhost:3000/auth/realms/master/protocol/openid-connect/certs",
-		"grant_types_supported": ["authorization_code", "refresh_token", "password"]
-	},
-	"token": {
-		"access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Im1vY2sta2lkIn0.eyJleHAiOjIwMDAwMDAwMDAsImlhdCI6MTcwMDAwMDAwMCwianRpIjoibW9jay1qdGktMTIzNDUiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjMwMDAvYXV0aC9yZWFsbXMvbWFzdGVyIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjEyMzQ1Njc4LTkwYWItY2RlZi0xMjM0LTU2Nzg5MGFiY2RlZiIsInR5cCI6IkJlYXJlciIsImF6cCI6Im9ic2VydmF0b3Jpby1hcHAiLCJzZXNzaW9uX3N0YXRlIjoibW9jay1zZXNzaW9uLXN0YXRlLTEyMzQ1IiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImFkbWluIiwidmlldy1ib29rcyIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJvYnNlcnZhdG9yaW8tYXBwIjp7InJvbGVzIjpbInZpZXctYm9va3MiXX19LCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsIm5hbWUiOiJBZG1pbiBUZXN0ZSIsInByZWZlcnJlZF91c2VybmFtZSI6ImFkbWluIiwiZ2l2ZW5fbmFtZSI6IkFkbWluIiwiZmFtaWx5X25hbWUiOiJUZXN0ZSIsImVtYWlsIjoiYWRtaW5AdGVzdGUuY29tIn0.bW9jay1zaWduYXR1cmU",
-		"expires_in": 300,
-		"refresh_expires_in": 1800,
-		"refresh_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Im1vY2sta2lkIn0.eyJleHAiOjIwMDAwMDAwMDAsImlhdCI6MTcwMDAwMDAwMCwianRpIjoibW9jay1qdGktMTIzNDUiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjMwMDAvYXV0aC9yZWFsbXMvbWFzdGVyIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjEyMzQ1Njc4LTkwYWItY2RlZi0xMjM0LTU2Nzg5MGFiY2RlZiIsInR5cCI6IlJlZnJlc2giLCJhenAiOiJvYnNlcnZhdG9yaW8tYXBwIiwic2Vzc2lvbl9zdGF0ZSI6Im1vY2stc2Vzc2lvbi1zdGF0ZS0xMjM0NSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJhZG1pbiIsInZpZXctYm9va3MiLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsib2JzZXJ2YXRvcmlvLWFwcCI6eyJyb2xlcyI6WyJ2aWV3LWJvb2tzIl19fSwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoiQWRtaW4gVGVzdGUiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbiIsImdpdmVuX25hbWUiOiJBZG1pbiIsImZhbWlseV9uYW1lIjoiVGVzdGUiLCJlbWFpbCI6ImFkbWluQHRlc3RlLmNvbSJ9.bW9jay1zaWduYXR1cmU",
-		"id_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Im1vY2sta2lkIn0.eyJleHAiOjIwMDAwMDAwMDAsImlhdCI6MTcwMDAwMDAwMCwianRpIjoibW9jay1qdGktMTIzNDUiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjMwMDAvYXV0aC9yZWFsbXMvbWFzdGVyIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjEyMzQ1Njc4LTkwYWItY2RlZi0xMjM0LTU2Nzg5MGFiY2RlZiIsInR5cCI6IklEIiwiYXpwIjoib2JzZXJ2YXRvcmlvLWFwcCIsInNlc3Npb25fc3RhdGUiOiJtb2NrLXNlc3Npb24tc3RhdGUtMTIzNDUiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiYWRtaW4iLCJ2aWV3LWJvb2tzIiwib2ZmbGluZV9hY2Nlc3MiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7Im9ic2VydmF0b3Jpby1hcHAiOnsicm9sZXMiOlsidmlldy1ib29rcyJdfX0sInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibmFtZSI6IkFkbWluIFRlc3RlIiwicHJlZmVycmVkX3VzZXJuYW1lIjoiYWRtaW4iLCJnaXZlbl9uYW1lIjoiQWRtaW4iLCJmYW1pbHlfbmFtZSI6IlRlc3RlIiwiZW1haWwiOiJhZG1pbkB0ZXN0ZS5jb20ifQ.bW9jay1zaWduYXR1cmU",
-		"token_type": "Bearer",
-		"not-before-policy": 0,
-		"session_state": "mock-session-state-12345",
-		"scope": "openid profile email"
-	},
-	"userinfo": {
-		"sub": "12345678-90ab-cdef-1234-567890abcdef",
-		"email_verified": true,
-		"name": "Admin Teste",
-		"preferred_username": "admin",
-		"given_name": "Admin",
-		"family_name": "Teste",
-		"email": "admin@teste.com",
-		"realm_access": {
-			"roles": ["admin", "view-books", "offline_access", "uma_authorization"]
-		},
-		"resource_access": {
-			"angular-app": { "roles": ["view-books"] }
-		}
-	},
-	"certs": {
-		"keys": [
-			{
-				"kid": "mock-kid",
-				"kty": "RSA",
-				"alg": "RS256",
-				"use": "sig",
-				"n": "mock-modulus-jwt-signing-key",
-				"e": "AQAB"
-			}
-		]
-	},
-	"realm-info": {
-		"realm": "master",
-		"public_key": "mock-public-key",
-		"token-service": "http://localhost:3000/auth/realms/master/protocol/openid-connect",
-		"account-service": "http://localhost:3000/auth/realms/master/account",
-		"tokens-not-before": 0
-	},
-	"registrations": []
+  "openid-configuration": {
+    "issuer": "http://localhost:9090/auth/realms/master",
+    "authorization_endpoint": "http://localhost:9090/auth/realms/master/protocol/openid-connect/auth",
+    "token_endpoint": "http://localhost:9090/auth/realms/master/protocol/openid-connect/token",
+    "userinfo_endpoint": "http://localhost:9090/auth/realms/master/protocol/openid-connect/userinfo",
+    "end_session_endpoint": "http://localhost:9090/auth/realms/master/protocol/openid-connect/logout",
+    "jwks_uri": "http://localhost:9090/auth/realms/master/protocol/openid-connect/certs",
+    "grant_types_supported": [
+      "authorization_code",
+      "refresh_token",
+      "password"
+    ]
+  },
+  "token": {},
+  "userinfo": {
+    "sub": "12345678-90ab-cdef-1234-567890abcdef",
+    "email_verified": true,
+    "name": "Admin Teste",
+    "preferred_username": "admin",
+    "given_name": "Admin",
+    "family_name": "Teste",
+    "email": "admin@teste.com",
+    "realm_access": {
+      "roles": [
+        "admin",
+        "view-books",
+        "offline_access",
+        "uma_authorization"
+      ]
+    },
+    "resource_access": {
+      "angular-app": {
+        "roles": [
+          "view-books"
+        ]
+      }
+    }
+  },
+  "certs": {
+    "keys": [
+      {
+        "kid": "mock-kid",
+        "kty": "RSA",
+        "alg": "RS256",
+        "use": "sig",
+        "n": "mock-modulus-jwt-signing-key",
+        "e": "AQAB"
+      }
+    ]
+  },
+  "realm-info": {
+    "realm": "master",
+    "public_key": "mock-public-key",
+    "token-service": "http://localhost:9090/auth/realms/master/protocol/openid-connect",
+    "account-service": "http://localhost:9090/auth/realms/master/account",
+    "tokens-not-before": 0
+  },
+  "registrations": []
 }
